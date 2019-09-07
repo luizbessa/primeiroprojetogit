@@ -1,0 +1,53 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct cliente{
+	char nome[40];
+	int cod;
+	float renda; 
+	
+};
+typedef struct cliente cli;
+void cadastrar(cli *p,int tam);
+void exibir(cli *p,int tam);
+void gravar(cli *p,int tam);
+main(){
+	int n;
+	cli *c;
+	printf("determine o tamanho do array:\n ");
+	scanf("%d",&n);
+	c=(cli *)malloc(n*sizeof(cli));
+	cadastrar(c,n);
+	exibir(c,n);
+	gravar(c,n);
+}
+void cadastrar(cli *p,int tam){
+	int i;
+	for(i=0;i<tam;i++){
+		_flushall();//limpar a memória do teclado.
+		printf("digite o nome: \n");
+		gets(p[i].nome);
+		printf("digite o cod: \n");
+		scanf("%d",&p[i].cod);
+		printf("digite a renda: \n");
+		scanf("%f",&p[i].renda);
+	}
+}
+void exibir(cli *p, int tam){
+	int i;
+	for(i=0;i<tam;i++){
+	printf("nome:%s\t",p[i].nome);
+	printf("cod:%d\t",p[i].cod);
+	printf("renda:%.2f\n",p[i].renda);
+	}
+}
+void gravar(cli *p,int tam){
+	FILE *arq;
+	int i;
+	arq=fopen("cadastro.txt","a");
+	for(i=0;i<tam;i++){
+		fprintf(arq,"nome: %s",p[i].nome);
+		fprintf(arq,"cod: %d",p[i].cod);
+		fprintf(arq,"nome: %.2f",p[i].renda);
+	}
+	fclose(arq);
+}
